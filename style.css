@@ -1,51 +1,116 @@
-/* =========================
-   BASIC PAGE
-========================= */
+* {
+    box-sizing: border-box;
+}
 
 html,
 body {
-    margin: 0;
-    padding: 0;
-
     width: 100%;
     height: 100%;
-
-    overflow: hidden;
+    margin: 0;
+    padding: 0;
 }
 
 body {
-    background: #f8c8dc;
+    overflow: hidden;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    background: #f8c8dc;
 
     font-family: Arial, sans-serif;
 }
 
 
-/* =========================
-   CAKE CONTAINER
-========================= */
+/* =================================
+   MAIN CONTAINER
+================================= */
 
-.cake {
-    position: absolute;
+.birthday-container {
+    position: relative;
 
-    left: 50%;
-    top: 50%;
+    width: 100vw;
+    height: 100vh;
 
-    transform: translate(-50%, -50%);
-
-    width: 200px;
-    height: 500px;
-
-    pointer-events: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 
-/* =========================
-   SVG CAKE
-========================= */
+/* =================================
+   BIRTHDAY TEXT
+================================= */
+
+.text {
+    position: absolute;
+
+    top: 12%;
+
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    text-align: center;
+
+    z-index: 20;
+
+    width: 100%;
+}
+
+.text h1 {
+    margin: 0;
+
+    color: #8b4f5c;
+
+    font-size: clamp(32px, 9vw, 50px);
+
+    line-height: 0.95;
+
+    opacity: 0;
+
+    transition: opacity 1s ease;
+}
+
+.text .name {
+    margin: 12px 0 0;
+
+    color: #8b4f5c;
+
+    font-size: 22px;
+
+    opacity: 0;
+
+    transition: opacity 1s ease 0.5s;
+}
+
+.text.show h1,
+.text.show .name {
+    opacity: 1;
+}
+
+
+/* =================================
+   CAKE AREA
+================================= */
+
+.cake-area {
+    position: absolute;
+
+    left: 50%;
+    top: 53%;
+
+    transform: translate(-50%, -50%);
+
+    width: 300px;
+    height: 300px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* =================================
+   ORIGINAL SVG
+================================= */
 
 #cake {
     position: absolute;
@@ -53,148 +118,101 @@ body {
     left: 50%;
     top: 50%;
 
-    transform: translate(-50%, -50%);
+    width: 300px;
+    height: 750px;
 
-    width: 200px;
-    height: 500px;
+    transform: translate(-50%, -50%);
 
     overflow: visible;
 }
 
 
-/* =========================
-   FLAMES
-========================= */
+/* =================================
+   FLAME AREA
+================================= */
+
+.flames {
+    position: absolute;
+    z-index: 10;
+    /*
+       Put the flames directly
+       above the cake.
+    */
+    left: 50%;
+    top: 350px;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    gap: 4px;
+}
+
+
+/* =================================
+   INDIVIDUAL FLAME
+================================= */
 
 .fuego {
-    position: absolute;
-
     width: 12px;
     height: 25px;
 
     background: #ff9800;
 
-    border-radius: 50% 50% 50% 50%;
+    border-radius:
+        50% 50% 45% 45%;
 
     opacity: 0;
 
     transform-origin: center bottom;
-
-    z-index: 10;
 }
 
 
-/* Individual flames */
-
-.fuego:nth-child(1) {
-    left: 78px;
-    top: 105px;
-}
-
-.fuego:nth-child(2) {
-    left: 90px;
-    top: 105px;
-}
-
-.fuego:nth-child(3) {
-    left: 102px;
-    top: 105px;
-}
-
-.fuego:nth-child(4) {
-    left: 114px;
-    top: 105px;
-}
-
-.fuego:nth-child(5) {
-    left: 126px;
-    top: 105px;
-}
-
-
-/* =========================
-   FLAME ANIMATION
-========================= */
+/* =================================
+   LIT FLAME
+================================= */
 
 .fuego.lit {
     opacity: 1;
 
-    animation: flame 0.3s infinite alternate;
+    animation:
+        flame 0.3s infinite alternate;
 }
 
 
 @keyframes flame {
 
     from {
-        transform: scale(1) rotate(-5deg);
+        transform:
+            scale(1)
+            rotate(-5deg);
     }
 
     to {
-        transform: scale(1.25) rotate(5deg);
+        transform:
+            scale(1.25)
+            rotate(5deg);
     }
 }
 
 
-/* =========================
-   BIRTHDAY TEXT
-========================= */
+/* =================================
+   PHONE
+================================= */
 
-.text {
-    position: absolute;
+@media (max-width: 600px) {
 
-    left: 50%;
-    top: 20%;
-
-    transform: translateX(-50%);
-
-    text-align: center;
-
-    z-index: 20;
-}
-
-.text h1 {
-    margin: 0;
-
-    font-size: 42px;
-
-    color: #8b4f5c;
-
-    opacity: 0;
-}
-
-.text .name {
-    margin-top: 10px;
-
-    font-size: 25px;
-
-    color: #8b4f5c;
-
-    opacity: 0;
-}
-
-
-/* =========================
-   TEXT SHOW
-========================= */
-
-.text.show h1 {
-    animation: showText 1s forwards;
-}
-
-.text.show .name {
-    animation: showText 1s 0.5s forwards;
-}
-
-
-@keyframes showText {
-
-    from {
-        opacity: 0;
-        transform: translateY(20px);
+    .cake-area {
+        top: 55%;
     }
 
-    to {
-        opacity: 1;
-        transform: translateY(0);
+    #cake {
+        width: 280px;
+        height: 700px;
     }
+
+    .flames {
+        top: 105px;
+    }
+
 }
