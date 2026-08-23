@@ -11,73 +11,51 @@ body {
 }
 
 body {
-    overflow: hidden;
-
+    margin: 0;
     background: #f8c8dc;
-
     font-family: Arial, sans-serif;
 }
 
 
-/* =================================
-   MAIN CONTAINER
-================================= */
+/* ================================
+   MAIN SCREEN
+================================ */
 
 .birthday-container {
     position: relative;
-
     width: 100vw;
     height: 100vh;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 
-/* =================================
+/* ================================
    BIRTHDAY TEXT
-================================= */
+================================ */
 
 .text {
     position: absolute;
-
     top: 12%;
-
     left: 50%;
-
     transform: translateX(-50%);
-
-    text-align: center;
-
-    z-index: 20;
-
     width: 100%;
+    text-align: center;
+    z-index: 20;
 }
 
 .text h1 {
     margin: 0;
-
     color: #8b4f5c;
-
     font-size: clamp(32px, 9vw, 50px);
-
     line-height: 0.95;
-
     opacity: 0;
-
     transition: opacity 1s ease;
 }
 
 .text .name {
     margin: 12px 0 0;
-
     color: #8b4f5c;
-
     font-size: 22px;
-
     opacity: 0;
-
     transition: opacity 1s ease 0.5s;
 }
 
@@ -87,20 +65,108 @@ body {
 }
 
 
-/* =================================
+/* ================================
    CAKE AREA
-================================= */
+================================ */
 
 .cake-area {
     position: absolute;
-
     left: 50%;
-    top: 53%;
-
+    top: 62%;
     transform: translate(-50%, -50%);
+    width: 320px;
+    height: 220px;
+    z-index: 5;
+}
 
+
+/* ================================
+   CAKE SVG
+================================ */
+
+#cake {
+    position: absolute;
+    left: 50%;
+    top: -550px;
+    transform: translateX(-50%);
     width: 300px;
-    height: 300px;
+    height: 750px;
+    overflow: visible;
+}
+
+
+/* ================================
+   FLAMES
+================================ */
+
+.flames {
+    position: absolute;
+    left: 50%;
+    top: 38px;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 4px;
+    z-index: 20;
+}
+
+
+/* ================================
+   FLAME
+================================ */
+
+.fuego {
+    width: 12px;
+    height: 25px;
+    background: #ff9800;
+    border-radius: 50% 50% 45% 45%;
+    opacity: 0;
+    transform-origin: center bottom;
+}
+
+
+/* ================================
+   LIT FLAME
+================================ */
+
+.fuego.lit {
+    opacity: 1;
+    animation: flame 0.3s infinite alternate;
+}
+
+
+/* ================================
+   FLAME ANIMATION
+================================ */
+
+@keyframes flame {
+    from {
+        transform: scale(1) rotate(-5deg);
+    }
+
+    to {
+        transform: scale(1.2) rotate(5deg);
+    }
+}
+
+/* =================================
+   ENVELOPE CONTAINER
+================================= */
+
+.letter-container {
+    position: fixed;
+    left: 50%;
+    bottom: 30px;
+
+    transform: translateX(-50%);
+
+    width: 220px;
+    height: 150px;
+
+    z-index: 50;
 
     display: flex;
     justify-content: center;
@@ -109,110 +175,459 @@ body {
 
 
 /* =================================
-   ORIGINAL SVG
+   ENVELOPE
 ================================= */
 
-#cake {
-    position: absolute;
+.envelope {
+    position: relative;
 
-    left: 50%;
-    top: 50%;
+    width: 200px;
+    height: 125px;
 
-    width: 300px;
-    height: 750px;
+    cursor: pointer;
 
-    transform: translate(-50%, -50%);
+    filter: drop-shadow(0 8px 10px rgba(0, 0, 0, 0.15));
 
-    overflow: visible;
+    transition:
+        transform 0.3s ease,
+        opacity 0.4s ease;
+}
+
+.envelope:hover {
+    transform: translateY(-6px);
 }
 
 
 /* =================================
-   FLAME AREA
+   ENVELOPE BACK
 ================================= */
 
-.flames {
+.envelope-back {
     position: absolute;
-    z-index: 10;
-    /*
-       Put the flames directly
-       above the cake.
-    */
+
+    width: 100%;
+    height: 100%;
+
+    background: #fff5f8;
+
+    border-radius: 8px;
+
+    border: 2px solid #e8a8b8;
+}
+
+
+/* =================================
+   PAPER INSIDE
+================================= */
+
+.envelope-paper {
+    position: absolute;
+
     left: 50%;
-    top: 350px;
+    top: 12px;
+
     transform: translateX(-50%);
-    width: 100px;
-    height: 40px;
+
+    width: 80px;
+    height: 90px;
+
+    background: white;
+
     display: flex;
     justify-content: center;
-    gap: 4px;
+    align-items: center;
+
+    font-size: 32px;
+
+    border-radius: 4px;
+
+    z-index: 2;
 }
 
 
 /* =================================
-   INDIVIDUAL FLAME
+   ENVELOPE FRONT
 ================================= */
 
-.fuego {
-    width: 12px;
-    height: 25px;
+.envelope-front {
+    position: absolute;
 
-    background: #ff9800;
+    left: 0;
+    bottom: 0;
 
-    border-radius:
-        50% 50% 45% 45%;
+    width: 0;
+    height: 0;
+
+    border-left: 100px solid transparent;
+    border-right: 100px solid transparent;
+    border-bottom: 70px solid #f6c1d0;
+
+    z-index: 4;
+}
+
+
+/* =================================
+   ENVELOPE FLAP
+================================= */
+
+.envelope-flap {
+    position: absolute;
+
+    left: 0;
+    top: 0;
+
+    width: 0;
+    height: 0;
+
+    border-left: 100px solid transparent;
+    border-right: 100px solid transparent;
+    border-top: 70px solid #edb0c1;
+
+    z-index: 5;
+}
+
+
+/* =================================
+   FULL SCREEN LETTER
+================================= */
+
+.letter {
+    position: fixed !important;
+
+    top: 0 !important;
+    left: 0 !important;
+
+    width: 100vw !important;
+    height: 100vh !important;
+
+    margin: 0 !important;
+
+    padding: 55px 8vw 100px !important;
+
+    background: #fffaf0;
+
+    border: none;
+    border-radius: 0;
+
+    box-shadow:
+        0 0 40px rgba(80, 40, 40, 0.25);
+
+    z-index: 9999 !important;
 
     opacity: 0;
 
-    transform-origin: center bottom;
+    pointer-events: none;
+
+    visibility: hidden;
+
+    transform: none !important;
+
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+
+    -webkit-overflow-scrolling: touch;
+
+    box-sizing: border-box;
 }
 
 
 /* =================================
-   LIT FLAME
+   LETTER OPEN
 ================================= */
 
-.fuego.lit {
-    opacity: 1;
+.letter.open {
+    opacity: 1 !important;
 
-    animation:
-        flame 0.3s infinite alternate;
-}
+    visibility: visible !important;
 
-
-@keyframes flame {
-
-    from {
-        transform:
-            scale(1)
-            rotate(-5deg);
-    }
-
-    to {
-        transform:
-            scale(1.25)
-            rotate(5deg);
-    }
+    pointer-events: auto !important;
 }
 
 
 /* =================================
-   PHONE
+   PAPER BORDER
+================================= */
+
+.letter::before {
+    content: "";
+
+    position: fixed;
+
+    top: 18px;
+    left: 18px;
+    right: 18px;
+    bottom: 18px;
+
+    border: 2px solid #e8cfc0;
+
+    pointer-events: none;
+
+    z-index: 1;
+}
+
+
+/* =================================
+   PAPER LINES
+================================= */
+
+.letter::after {
+    content: "";
+
+    position: absolute;
+
+    left: 8vw;
+    right: 8vw;
+
+    top: 155px;
+    bottom: 40px;
+
+    background:
+        repeating-linear-gradient(to bottom,
+            transparent 0px,
+            transparent 31px,
+            rgba(190, 160, 160, 0.22) 32px);
+
+    pointer-events: none;
+
+    z-index: 0;
+}
+
+
+/* =================================
+   LETTER CONTENT
+================================= */
+
+.letter-content {
+    position: relative;
+
+    z-index: 2;
+
+    width: min(800px, 100%);
+
+    margin: 0 auto;
+
+    padding: 30px 20px 100px;
+
+    color: #654b4b;
+
+    font-family:
+        "Segoe Print",
+        "Bradley Hand",
+        "Comic Sans MS",
+        cursive;
+
+    font-size: clamp(17px, 2vw, 21px);
+
+    line-height: 1.9;
+
+    text-align: left;
+}
+
+
+/* =================================
+   LETTER HEADING
+================================= */
+
+.letter-content h2 {
+    margin-top: 10px;
+
+    margin-bottom: 35px;
+
+    color: #9b5968;
+
+    text-align: left;
+
+    font-family:
+        "Segoe Print",
+        "Bradley Hand",
+        "Comic Sans MS",
+        cursive;
+
+    font-size: clamp(27px, 5vw, 40px);
+
+    font-weight: 600;
+
+    transform: rotate(-1deg);
+}
+
+
+/* =================================
+   LETTER PARAGRAPHS
+================================= */
+
+.letter-content p {
+    margin: 0 auto 22px;
+
+    letter-spacing: 0.2px;
+}
+
+
+/* =================================
+   BIRTHDAY ENDING
+================================= */
+
+.letter-content h3 {
+    margin-top: 40px;
+
+    margin-bottom: 25px;
+
+    color: #9b5968;
+
+    text-align: center;
+
+    font-family:
+        "Segoe Print",
+        "Bradley Hand",
+        "Comic Sans MS",
+        cursive;
+
+    font-size: clamp(22px, 4vw, 32px);
+
+    transform: rotate(1deg);
+}
+
+
+/* =================================
+   SIGNATURE
+================================= */
+
+.signature {
+    margin-top: 40px !important;
+
+    padding-right: 15px;
+
+    text-align: right;
+
+    color: #8b4f5c;
+
+    font-size: 20px;
+
+    transform: rotate(-2deg);
+}
+
+.signature strong {
+    font-size: 25px;
+}
+
+
+/* =================================
+   CLOSE BUTTON
+================================= */
+
+.close-letter {
+    position: fixed !important;
+
+    top: 20px !important;
+    right: 25px !important;
+
+    width: 45px;
+    height: 45px;
+
+    border: none;
+
+    background: #f6dce3;
+
+    color: #8b4f5c;
+
+    border-radius: 50%;
+
+    font-size: 30px;
+
+    line-height: 40px;
+
+    cursor: pointer;
+
+    z-index: 10000 !important;
+
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease;
+}
+
+.close-letter:hover {
+    transform: scale(1.1);
+
+    background: #edc6d1;
+}
+
+
+/* =================================
+   MOBILE LETTER
 ================================= */
 
 @media (max-width: 600px) {
 
-    .cake-area {
-        top: 55%;
+    .letter {
+        top: 0 !important;
+        left: 0 !important;
+
+        width: 100vw !important;
+        height: 100vh !important;
+
+        padding: 45px 25px 80px !important;
+
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+
+        -webkit-overflow-scrolling: touch;
     }
 
-    #cake {
-        width: 280px;
-        height: 700px;
+    .letter::before {
+        top: 12px;
+        left: 12px;
+        right: 12px;
+        bottom: 12px;
     }
 
-    .flames {
-        top: 105px;
+    .letter::after {
+        left: 25px;
+        right: 25px;
+
+        top: 125px;
+        bottom: 25px;
     }
 
+    .letter-content {
+        width: 100%;
+
+        padding: 25px 8px 100px;
+
+        font-size: 16px;
+
+        line-height: 1.85;
+    }
+
+    .letter-content h2 {
+        margin-bottom: 28px;
+
+        font-size: 28px;
+    }
+
+    .letter-content p {
+        margin-bottom: 18px;
+    }
+
+    .letter-content h3 {
+        font-size: 23px;
+    }
+
+    .signature {
+        margin-top: 30px !important;
+
+        font-size: 18px;
+    }
+
+    .signature strong {
+        font-size: 23px;
+    }
+
+    .close-letter {
+        top: 18px !important;
+        right: 18px !important;
+
+        width: 40px;
+        height: 40px;
+
+        font-size: 26px;
+    }
 }
